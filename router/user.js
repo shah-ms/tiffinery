@@ -55,11 +55,12 @@ router.post("/login", async (req, res) => {
   try {
     console.log(req.body);
     let { phoneNo } = req.body;
-    console.log(typeof phoneNo);
-    console.log(phoneNo);
+    let phone = parseInt(phoneNo);
+    console.log(typeof phone);
+    console.log(phone);
     nexmo.verify.request(
       {
-        number: `91${phoneNo}`,
+        number: `91${phone}`,
         brand: "Vonage",
         code_length: "4",
         action_type: "sms",
