@@ -16,5 +16,7 @@
     "nexmo": "^2.8.0",
     "sendotp": "^1.2.9"
   },
-  "engines": "12.x"
+  "engines": {
+  	"node":"12.x"
+  }
 }
