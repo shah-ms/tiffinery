@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.use("https://mighty-temple-44269.herokuapp.com", router);
+app.use(router);
 
 let port = process.env.PORT;
 
