@@ -19,37 +19,14 @@ const conn = mysql.createConnection({
   database: "tiffinery",
 });
 
+let otpRequestId = 0;
+
 function generateAccessToken(username) {
   return jwt.sign({ username: username }, process.env.ACCESS_TOKEN_KEY, {
     expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME,
   });
 }
 
-// router.post("/users/login", async (req, res) => {
-//   try {
-//     let { phoneNo } = req.body;
-//     var sql = `SELECT * from users WHERE username=?`;
-//     conn.query(sql, user, (err, result) => {
-//       if (err) {
-//         res.status(400).send(err);
-//       } else {
-//         if (Object.keys(result).length === 1) {
-//           const isPassword = bcrypt.compare(password, result[0].password);
-//           if (!isPassword) {
-//             res.status(401).send({ msg: "Invalid Credentials" });
-//           } else {
-//             const token = generateAccessToken(result[0].userId);
-//             res.send(200).send({ token: token });
-//           }
-//         } else {
-//           res.send(401).send({ msg: "User already exists" });
-//         }
-//       }
-//     });
-//   } catch (e) {
-//     res.status(400).send(err);
-//   }
-// });
 
 router.post("/login", async (req, res) => {
   try {
@@ -67,6 +44,7 @@ router.post("/login", async (req, res) => {
       },
       (err, result) => {
         if(!err) {
+        otpRequestId = result['request_id'];
         res.status(200).send('OTP Sent');
       }
     }
@@ -74,5 +52,27 @@ router.post("/login", async (req, res) => {
     res.status(400).send(err);
   }
 });
+
+router.post("/verify", async(req, res) => {
+	try {
+	  console.log(req.body);
+	  let {otp} = req.body;
+	  
+	  nexmo.verify.check({
+  	  	request_id: otpRequestId,
+      	code: `${otp}`
+	  }, (err, result) => {
+	  if(result['status'] === 0)
+	  {
+		res.status(200).send('Success');
+	  } else {
+		 res.status(400).send('Invalid OTP');
+	  }
+	});
+	  
+	} catch(err) {
+		res.status(400).send(err);
+	}
+}
 
 module.exports = router;

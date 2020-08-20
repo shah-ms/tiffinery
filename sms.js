@@ -21,7 +21,7 @@ const nexmo = new Nexmo({
 //   }
 // });
 
-nexmo.verify.request(
+/*nexmo.verify.request(
   {
     number: "917720005680",
     brand: "Vonage",
@@ -32,3 +32,11 @@ nexmo.verify.request(
     console.log(err ? err : result);
   }
 );
+*/
+
+nexmo.verify.check({
+  request_id: '6406f62fb2124b3697d567829821d6ca',
+  code: '3958'
+}, (err, result) => {
+  console.log(err ? err : result)
+});
