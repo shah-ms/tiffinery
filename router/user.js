@@ -58,11 +58,12 @@ router.post("/verify", async (req, res) => {
   try {
     console.log(req.body);
     let { otp } = req.body;
+    let code = parseInt(otp);
 
     nexmo.verify.check(
       {
         request_id: otpRequestId,
-        code: otp,
+        code: code,
       },
       (err, result) => {
         if (result["status"] === 0) {
