@@ -62,7 +62,7 @@ router.post("/verify", async (req, res) => {
     nexmo.verify.check(
       {
         request_id: otpRequestId,
-        code: `${otp}`,
+        code: otp,
       },
       (err, result) => {
         if (result["status"] === 0) {
