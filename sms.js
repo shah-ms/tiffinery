@@ -20,8 +20,8 @@ const nexmo = new Nexmo({
 //     }
 //   }
 // });
-
-/*nexmo.verify.request(
+/*
+nexmo.verify.request(
   {
     number: "917720005680",
     brand: "Vonage",
@@ -29,14 +29,18 @@ const nexmo = new Nexmo({
     action_type: "sms",
   },
   (err, result) => {
-    console.log(err ? err : result);
+    console.log(result);
+    console.log(typeof result["request_id"]);
   }
 );
 */
 
-nexmo.verify.check({
-  request_id: '6406f62fb2124b3697d567829821d6ca',
-  code: '3958'
-}, (err, result) => {
-  console.log(err ? err : result)
-});
+nexmo.verify.check(
+  {
+    request_id: "68ff140ac3f24d5b9b485823dbf293a6",
+    code: 1096,
+  },
+  (err, result) => {
+    console.log(err ? err : result);
+  }
+);

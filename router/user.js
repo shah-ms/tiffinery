@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
       (err, result) => {
         if (!err) {
           otpRequestId = result["request_id"];
-          console.log(otpRequestId);
+          console.log(typeof otpRequestId);
           res.status(200).send("OTP Sent");
         }
       }
@@ -69,12 +69,12 @@ router.post("/verify", async (req, res) => {
         if (result["status"] === 0) {
           res.status(200).send("Success");
         } else {
-          res.status(400).send("Invalid OTP");
+          res.status(401).send("Invalid OTP");
         }
       }
     );
   } catch (err) {
-    res.status(400).send(err);
+    res.status(err.statusCode).send(err);
   }
 });
 
