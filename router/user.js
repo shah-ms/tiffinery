@@ -75,6 +75,7 @@ router.post("/verify", async (req, res) => {
       }
     );
   } catch (err) {
+    console.log(err);
     res.status(err.statusCode).send(err);
   }
 });
