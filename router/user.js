@@ -27,7 +27,6 @@ function generateAccessToken(username) {
   });
 }
 
-
 router.post("/login", async (req, res) => {
   try {
     console.log(req.body);
@@ -43,36 +42,39 @@ router.post("/login", async (req, res) => {
         action_type: "sms",
       },
       (err, result) => {
-        if(!err) {
-        otpRequestId = result['request_id'];
-        res.status(200).send('OTP Sent');
+        if (!err) {
+          otpRequestId = result["request_id"];
+          console.log(otpRequestId);
+          res.status(200).send("OTP Sent");
+        }
       }
-    }
-  );} catch (err) {
+    );
+  } catch (err) {
     res.status(400).send(err);
   }
 });
 
-router.post("/verify", async(req, res) => {
-	try {
-	  console.log(req.body);
-	  let {otp} = req.body;
-	  
-	  nexmo.verify.check({
-  	  	request_id: otpRequestId,
-      	code: `${otp}`
-	  }, (err, result) => {
-	  if(result['status'] === 0)
-	  {
-		res.status(200).send('Success');
-	  } else {
-		 res.status(400).send('Invalid OTP');
-	  }
-	});
-	  
-	} catch(err) {
-		res.status(400).send(err);
-	}
+router.post("/verify", async (req, res) => {
+  try {
+    console.log(req.body);
+    let { otp } = req.body;
+
+    nexmo.verify.check(
+      {
+        request_id: otpRequestId,
+        code: `${otp}`,
+      },
+      (err, result) => {
+        if (result["status"] === 0) {
+          res.status(200).send("Success");
+        } else {
+          res.status(400).send("Invalid OTP");
+        }
+      }
+    );
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 module.exports = router;
