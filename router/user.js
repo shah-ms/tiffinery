@@ -57,7 +57,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/verify", async (req, res) => {
   try {
-    console.log(req.body);
+    console.log(otpRequestId);
     let { otp } = req.body;
     // let code = parseInt(otp);
 
