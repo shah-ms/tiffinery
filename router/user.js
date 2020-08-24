@@ -69,7 +69,9 @@ router.post("/verify", async (req, res) => {
         code: otp,
       },
       (err, result) => {
-        if (result["status"] === 0) {
+        console.log("Error");
+        console.log(err, result);
+        if (result["status"] == 0) {
           res.status(200).send("Success");
         } else {
           res.status(401).send("Invalid OTP");
