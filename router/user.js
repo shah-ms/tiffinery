@@ -1,7 +1,5 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-// const bcrypt = require("bcryptjs");
-const mysql = require("mysql");
 const Nexmo = require("nexmo");
 
 const nexmo = new Nexmo({
@@ -10,14 +8,6 @@ const nexmo = new Nexmo({
 });
 
 const router = express.Router();
-
-const conn = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  port: 3306,
-  database: "tiffinery",
-});
 
 let otpRequestId = 0;
 
@@ -69,10 +59,9 @@ router.post("/verify", async (req, res) => {
         code: otp,
       },
       (err, result) => {
-        console.log("Error");
-        console.log(err, result);
         if (result["status"] == "0") {
-          res.status(200).json(result);
+          console.log(result["status"]);
+          res.status(200).json("OTP Verified");
         } else {
           res.status(401).send("Invalid OTP");
         }
