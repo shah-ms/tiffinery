@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const Nexmo = require("nexmo");
+require("dotenv").config();
 
 const nexmo = new Nexmo({
   apiKey: "3f43bd78",
@@ -19,11 +20,8 @@ function generateAccessToken(username) {
 
 router.post("/login", async (req, res) => {
   try {
-    console.log(req.body);
     let { phoneNo } = req.body;
     let phone = parseInt(phoneNo);
-    console.log(typeof phone);
-    console.log(phone);
     nexmo.verify.request(
       {
         number: `91${phone}`,
@@ -34,13 +32,11 @@ router.post("/login", async (req, res) => {
       (err, result) => {
         if (!err) {
           otpRequestId = result["request_id"];
-          console.log(typeof otpRequestId);
           res.status(200).send("OTP Sent");
         }
       }
     );
   } catch (err) {
-    console.log(err);
     res.status(400).send(err);
   }
 });
@@ -49,18 +45,14 @@ router.post("/verify", async (req, res) => {
   try {
     console.log(otpRequestId);
     let { otp } = req.body;
-    // let code = parseInt(otp);
 
     nexmo.verify.check(
       {
-        apiKey: "3f43bd78",
-        apiSecret: "My9MkIHkRN7eDbRR",
         request_id: otpRequestId,
         code: otp,
       },
       (err, result) => {
         if (result["status"] == "0") {
-          console.log(result["status"]);
           res.status(200).json("OTP Verified");
         } else {
           res.status(401).send("Invalid OTP");
