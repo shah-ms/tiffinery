@@ -5,9 +5,8 @@ const Tiffin = require("../models/Tiffin");
 router.get("/", async (req, res) => {
   try {
     const res = await Tiffin.find({});
-    console.log(res);
+    res.status(200).json(res);
   } catch (err) {
-    console.log(err);
     res.status(err.statusCode).json(err);
   }
 });
