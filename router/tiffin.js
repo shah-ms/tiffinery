@@ -11,3 +11,5 @@ router.get("/", async (req, res) => {
     res.status(err.statusCode).json(err);
   }
 });
+
+module.exports = router;
