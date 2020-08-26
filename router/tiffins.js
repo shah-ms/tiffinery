@@ -4,10 +4,10 @@ const Tiffin = require("../models/Tiffin");
 
 router.get("/", async (req, res) => {
   try {
-    const res = await Tiffin.find({});
-    res.status(200).json(res);
+    const result = await Tiffin.find({});
+    res.status(200).json(result);
   } catch (err) {
-    res.status(500).send({ msg: err });
+    res.status(500).json(err);
   }
 });
 
