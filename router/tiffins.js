@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const tiffin = require("../models/Tiffin");
+const Tiffin = require("../models/Tiffin");
 
 router.get("/", async (req, res) => {
   try {
-    const res = await tiffin.find({});
+    const res = await Tiffin.find({});
     console.log(res);
   } catch (err) {
     console.log(err);

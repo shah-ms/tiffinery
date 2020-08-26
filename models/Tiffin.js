@@ -22,4 +22,4 @@ const tiffinSchema = new mongoose.Schema({
   },
 });
 
-module.exports = tiffin = mongoose.model(tiffin, tiffinSchema);
+module.exports = Tiffin = mongoose.model("tiffins", tiffinSchema);
