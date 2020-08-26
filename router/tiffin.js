@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Tiffin = require("../models/Tiffin");
+const Tiffin = require("../models/Tiffins");
 
 router.get("/", async (req, res) => {
   try {
