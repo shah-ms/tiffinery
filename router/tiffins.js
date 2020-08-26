@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     const res = await Tiffin.find({});
     res.status(200).json(res);
   } catch (err) {
-    res.status(500).error({ msg: err });
+    res.status(500).send({ msg: err });
   }
 });
 
