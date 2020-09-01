@@ -53,6 +53,7 @@ router.post("/verify", async (req, res) => {
       },
       (err, result) => {
         if (result["status"] == "0") {
+          // generateAccessToken()
           res.status(200).json("OTP Verified");
         } else {
           res.status(401).send("Invalid OTP");
