@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const Cart = require("../models/Tiffin");
 const router = express.Router();
 
-router.get("/cart", async (req, res) => {
+router.post("/cart", async (req, res) => {
   //   const token = event.headers["Authorization"].replace("Bearer ", "");
   //   const payload = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
   //   const userId = payload["userId"];
