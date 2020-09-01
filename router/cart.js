@@ -24,7 +24,7 @@ router.post("/cart", async (req, res) => {
     {
       tiffinId: tiffinId,
       quantity: 1,
-      userId: 1,
+      userId: "1",
     },
   ];
 
