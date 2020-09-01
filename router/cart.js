@@ -20,11 +20,13 @@ router.post("/cart", async (req, res) => {
 
   //   console.log(result);
 
-  const data = {
-    tiffinId: tiffinId,
-    quantity: 1,
-    userId: 1,
-  };
+  const data = [
+    {
+      tiffinId: tiffinId,
+      quantity: 1,
+      userId: 1,
+    },
+  ];
 
   Cart.insertMany(data, function (err, result) {
     console.log(result);
