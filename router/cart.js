@@ -29,6 +29,9 @@ router.post("/cart", async (req, res) => {
   ];
 
   Cart.insertMany(data, function (err, result) {
+    if (err) {
+      console.log(err);
+    }
     console.log(result);
   });
 });
