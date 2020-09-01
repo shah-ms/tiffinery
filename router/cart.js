@@ -26,9 +26,7 @@ router.post("/cart", async (req, res) => {
     userId: 1,
   };
 
-  let item = new Cart(data);
-
-  item.save(function (err, result) {
+  Cart.insertMany(data, function (err, result) {
     console.log(result);
   });
 });
