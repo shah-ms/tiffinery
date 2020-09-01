@@ -8,7 +8,7 @@ router.post("/cart", async (req, res) => {
   //   const payload = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
   //   const userId = payload["userId"];
   const { tiffinId } = req.body;
-
+  console.log(tiffinId);
   //   const result = await Cart.findOneAndUpdate(
   //     {
   //       userId: userId,
@@ -28,7 +28,7 @@ router.post("/cart", async (req, res) => {
 
   let item = new Cart(data);
 
-  item.save((err, result) => {
+  item.save(function (err, result) {
     console.log(result);
   });
 });
