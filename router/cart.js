@@ -25,9 +25,9 @@ router.post("/cart", async (req, res) => {
     quantity: 1,
     userId: 1,
   };
-  const result = await Cart.create(data);
-
-  console.log(result);
+  Cart.create(data, (err, result) => {
+    console.log(result);
+  });
 });
 
 module.exports = router;
