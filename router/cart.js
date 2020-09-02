@@ -22,7 +22,7 @@ router.post("/cart", async (req, res) => {
 
   const data = [
     {
-      tiffinId: tiffinId,
+      tiffin: tiffinId,
       quantity: 1,
       userId: "1",
     },
