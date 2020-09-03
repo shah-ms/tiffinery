@@ -7,8 +7,8 @@ router.post("/cart", async (req, res) => {
   //   const token = event.headers["Authorization"].replace("Bearer ", "");
   //   const payload = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
   //   const userId = payload["userId"];
-  const { tiffinId } = req.body;
-  console.log(tiffinId);
+  const { tiffin } = req.body;
+  console.log(tiffin);
   //   const result = await Cart.findOneAndUpdate(
   //     {
   //       userId: userId,
@@ -21,7 +21,7 @@ router.post("/cart", async (req, res) => {
   //   console.log(result);
 
   const data = {
-    tiffin: tiffinId,
+    tiffin: tiffin,
     quantity: 1,
     userId: "1",
   };

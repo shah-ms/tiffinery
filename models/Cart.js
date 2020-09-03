@@ -5,7 +5,7 @@ const CartSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  userId: {
+  user: {
     type: String,
     required: true,
   },
