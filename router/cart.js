@@ -26,7 +26,9 @@ router.post("/cart", async (req, res) => {
     userId: "1",
   };
 
-  Cart.create(data, function (err, result) {
+  var item = new Cart(data);
+
+  Cart.save(function (err, result) {
     if (err) {
       console.log(err);
     }
