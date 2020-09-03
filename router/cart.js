@@ -28,7 +28,7 @@ router.post("/cart", async (req, res) => {
 
   var item = new Cart(data);
 
-  Cart.save(function (err, result) {
+  item.save(function (err, result) {
     if (err) {
       console.log(err);
     }
