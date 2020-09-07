@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const Cart = require("../models/Tiffin");
 const router = express.Router();
+const conn = require("../db/db");
 
 router.post("/cart", async (req, res) => {
   //   const token = event.headers["Authorization"].replace("Bearer ", "");
@@ -9,6 +9,14 @@ router.post("/cart", async (req, res) => {
   //   const userId = payload["userId"];
   const { tiffin } = req.body;
   console.log(tiffin);
+
+  var sql = "SELECT * FROM cart WHERE tiffinId=?";
+  conn.query(sql, tiffin, (err, result) => {
+    if (err) {
+    } else {
+      console.log(result);
+    }
+  });
 });
 
 module.exports = router;
