@@ -4,9 +4,6 @@ const TiffinRouter = require("./router/tiffins");
 const CartRouter = require("./router/cart");
 const bodyParser = require("body-parser");
 const app = express();
-const connectDB = require("./db/db");
-
-connectDB();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
