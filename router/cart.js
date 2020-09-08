@@ -14,7 +14,7 @@ router.post("/cart", async (req, res) => {
   conn.query(sql, 1, (err, result) => {
     if (err) {
     } else {
-      if (result.length() == 0) {
+      if (result.length == 0) {
         var sql = "INSERT INTO cart (userId) VALUES (?)";
         conn.query(sql, 1, (err, result) => {
           if (err) {
