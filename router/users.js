@@ -1,6 +1,8 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const Nexmo = require("nexmo");
+const conn = require("../db/db");
+
 require("dotenv").config();
 
 const nexmo = new Nexmo({
@@ -11,9 +13,10 @@ const nexmo = new Nexmo({
 const router = express.Router();
 
 let otpRequestId = 0;
+let phone = 0;
 
-function generateAccessToken(username) {
-  return jwt.sign({ username: username }, process.env.ACCESS_TOKEN_KEY, {
+function generateAccessToken(paylod) {
+  return jwt.sign({ phoneNo: payload }, process.env.ACCESS_TOKEN_KEY, {
     expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME,
   });
 }
@@ -53,8 +56,15 @@ router.post("/verify", async (req, res) => {
       },
       (err, result) => {
         if (result["status"] == "0") {
-          // generateAccessToken()
-          res.status(200).json("OTP Verified");
+          var sql = "INSERT INTO users(phoneNo) VALUES(?)";
+          conn.query(sql, `${phone}`, (err, result) => {
+            if (err) {
+              res.status(400).json(err);
+            } else {
+              var token = generateAccessToken(phone);
+              res.status(200).json(token);
+            }
+          });
         } else {
           res.status(401).send("Invalid OTP");
         }
