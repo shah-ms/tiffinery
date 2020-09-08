@@ -14,8 +14,8 @@ router.post("/cart", async (req, res) => {
   conn.query(sql, 1, (err, result) => {
     if (err) {
     } else {
-      console.log(result, "New Cart");
       if (result.length == 0) {
+        console.log(result, "New Cart");
         var sql = "INSERT INTO cart (userId) VALUES (?)";
         conn.query(sql, 1, (err, result) => {
           if (err) {
@@ -35,7 +35,7 @@ router.post("/cart", async (req, res) => {
         });
       } else {
         console.log(result, "Existing cart");
-        let cartId = result["cartId"];
+        let cartId = result[0]["cartId"];
         var sql =
           "INSERT INTO cartItems (cartId, tiffinId, quantity) VALUES (?, ?, ?)";
         conn.query(sql, [cartId, tiffin, quantity], (err, result) => {
