@@ -10,8 +10,8 @@ router.post("/cart", async (req, res) => {
   const { tiffin } = req.body;
   console.log(tiffin);
 
-  var sql = "SELECT * FROM cart WHERE tiffinId=?";
-  conn.query(sql, tiffin, (err, result) => {
+  var sql = "SELECT cartId FROM cart WHERE userId=?";
+  conn.query(sql, 1, (err, result) => {
     if (err) {
     } else {
       console.log(result);
