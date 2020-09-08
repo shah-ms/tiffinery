@@ -33,6 +33,16 @@ router.post("/cart", async (req, res) => {
           }
         });
       } else {
+        let cartId = result["cartId"];
+        var sql =
+          "INSERT INTO cartItems (cartId, tiffinId, quantity) VALUES (?)";
+        conn.query(sql, [cartId, tiffin, quantity], (err, result) => {
+          if (err) {
+            res.status(400).json(err);
+          } else {
+            res.status(200);
+          }
+        });
       }
     }
   });
