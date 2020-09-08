@@ -14,7 +14,17 @@ router.post("/cart", async (req, res) => {
   conn.query(sql, 1, (err, result) => {
     if (err) {
     } else {
-      console.log(result);
+      if (result.length() == 0) {
+        var sql = "INSERT INTO cart (userId) VALUES (?)";
+        conn.query(sql, 1, (err, result) => {
+          if (err) {
+            res.status(400).json(err);
+          } else {
+            console.log(result);
+          }
+        });
+      } else {
+      }
     }
   });
 });
