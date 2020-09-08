@@ -15,7 +15,7 @@ const router = express.Router();
 let otpRequestId = 0;
 let phone = 0;
 
-function generateAccessToken(paylod) {
+function generateAccessToken(payload) {
   return jwt.sign({ phoneNo: payload }, process.env.ACCESS_TOKEN_KEY, {
     expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME,
   });
