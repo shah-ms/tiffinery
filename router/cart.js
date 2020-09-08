@@ -7,7 +7,7 @@ router.post("/cart", async (req, res) => {
   //   const token = event.headers["Authorization"].replace("Bearer ", "");
   //   const payload = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
   //   const userId = payload["userId"];
-  const { tiffin } = req.body;
+  const { tiffin, quantity } = req.body;
   console.log(tiffin);
 
   var sql = "SELECT cartId FROM cart WHERE userId=?";
@@ -20,7 +20,16 @@ router.post("/cart", async (req, res) => {
           if (err) {
             res.status(400).json(err);
           } else {
-            console.log(result);
+            let cartId = result["insertId"];
+            var sql =
+              "INSERT INTO cartItems (cartId, tiffinId, quantity) VALUES (?)";
+            conn.query(sql, [cartId, tiffin, quantity], (err, result) => {
+              if (err) {
+                res.status(400).json(err);
+              } else {
+                res.status(200);
+              }
+            });
           }
         });
       } else {
