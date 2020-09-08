@@ -28,7 +28,7 @@ router.post("/cart", async (req, res) => {
               if (err) {
                 res.status(400).json(err);
               } else {
-                res.status(200);
+                res.status(200).json("Added to Cart");
               }
             });
           }
@@ -42,7 +42,7 @@ router.post("/cart", async (req, res) => {
           if (err) {
             res.status(400).json(err);
           } else {
-            res.status(200);
+            res.status(200).json("Added to Cart");
           }
         });
       }
