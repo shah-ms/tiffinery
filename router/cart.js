@@ -23,7 +23,7 @@ router.post("/cart", async (req, res) => {
           } else {
             let cartId = result["insertId"];
             var sql =
-              "INSERT INTO cartItems (cartId, tiffinId, quantity) VALUES (?)";
+              "INSERT INTO cartItems (cartId, tiffinId, quantity) VALUES (?, ?, ?)";
             conn.query(sql, [cartId, tiffin, quantity], (err, result) => {
               if (err) {
                 res.status(400).json(err);
