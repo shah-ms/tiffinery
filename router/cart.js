@@ -50,4 +50,20 @@ router.post("/cart", async (req, res) => {
   });
 });
 
+router.get("/getCart", async (req, res) => {
+  var sql =
+    "SELECT * FROM cart INNER JOIN cartItems ON cart.cartId = cartItems.cartId WHERE cart.userId=?";
+  conn.query(sql, 1, (err, result) => {
+    if (err) {
+      res.status(400).json(err);
+    } else {
+      if (result.length == 1) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json("Cart is empty!");
+      }
+    }
+  });
+});
+
 module.exports = router;
