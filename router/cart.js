@@ -53,23 +53,19 @@ router.post("/cart", async (req, res) => {
 router.get("/getCart", async (req, res) => {
   try {
     var sql =
-      "SELECT * FROM cart INNER JOIN cartItems ON cart.cartId = cartItems.cartId WHERE cart.userId=?";
+      "SELECT cartItems.tiffinId, cartItems.quantity FROM cart INNER JOIN cartItems ON cart.cartId = cartItems.cartId WHERE cart.userId=?";
     conn.query(sql, 1, (err, result) => {
       if (err) {
         res.status(400).json(err);
       } else {
-        console.log(result);
         if (result.length != 0) {
-          console.log(result);
-          res.status(200).json(result);
+          res.status(200).json({ result: result, cartEmpty: false });
         } else {
-          console.log("Cart is empty");
-          res.status(400).json("Cart is empty!");
+          res.status(200).json({ cartEmpty: true });
         }
       }
     });
   } catch (err) {
-    console.log(err);
     res.status(400).json(err);
   }
 });
