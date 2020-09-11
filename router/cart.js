@@ -58,6 +58,7 @@ router.get("/getCart", async (req, res) => {
       if (err) {
         res.status(400).json(err);
       } else {
+        console.log(result);
         if (result.length == 1) {
           console.log(result);
           res.status(200).json(result);
