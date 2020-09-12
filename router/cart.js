@@ -59,7 +59,7 @@ router.get("/getCart", async (req, res) => {
         res.status(400).json(err);
       } else {
         if (result.length != 0) {
-          res.status(200).json({ result: result, cartEmpty: false });
+          res.status(200).json({ items: result, cartEmpty: false });
         } else {
           res.status(200).json({ cartEmpty: true });
         }
