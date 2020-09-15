@@ -7,7 +7,7 @@ async function getCartItems(cartId) {
   console.log("cart items function");
   var sql =
     "SELECT * FROM cartItems INNER JOIN tiffins ON cartItems.tiffinId = tiffins.tiffinId WHERE cartItems.cartId=?";
-  let response = await conn.query(sql, cartId);
+  let response = await conn.query(sql, cartId).promise();
   console.log(response);
 }
 
