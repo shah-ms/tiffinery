@@ -4,6 +4,7 @@ const router = express.Router();
 const conn = require("../db/db");
 
 function getCartItems(cartId) {
+  console.log("cart items function");
   var sql =
     "SELECT * FROM cartItems INNER JOIN tiffins ON cartItems.tiffinId = tiffins.tiffinId WHERE cartItems.cartId=?";
   conn.query(sql, cartId, (err, result) => {
