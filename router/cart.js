@@ -28,11 +28,13 @@ router.post("/cart", async (req, res) => {
         let cartId = result[0]["cartId"];
 
         if (quantity == 1) {
+          console.log("Increase quantity");
           var sql =
             "UPDATE cartItems SET quantity = quantity + 1 WHERE cartId=? AND tiffinId=?";
           conn.query(sql, [cartId, tiffinId], async (err, result) => {
             if (err) {
             } else {
+              console.log(result);
               let cartItems = await getCartItems(cartId);
               res.status(200).json(cartItems);
             }
