@@ -36,6 +36,7 @@ router.post("/cart", async (req, res) => {
             } else {
               console.log(result);
               let cartItems = await getCartItems(cartId);
+              console.log(cartItems);
               res.status(200).json(cartItems);
             }
           });
