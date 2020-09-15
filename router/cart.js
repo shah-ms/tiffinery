@@ -35,11 +35,13 @@ router.post("/cart", async (req, res) => {
             }
           });
         } else {
+          console.log("cart quantity decrease");
           var sql =
             "SELECT cartItems.quantity FROM cartItems WHERE cartId=? AND tiffinId=?";
           conn.query(sql, [cartId, tiffinId], (err, result) => {
             if (!err) {
               if (result["quantity"] == 1) {
+                console.log("remove items");
                 var sql = "DELETE FROM cartItems WHERE cartId=? AND tiffinId=?";
                 conn.query(sql, [cartId, tiffinId], async (err, result) => {
                   if (!err) {
@@ -53,6 +55,7 @@ router.post("/cart", async (req, res) => {
                   }
                 });
               } else {
+                console.log("decrease");
                 var sql =
                   "UPDATE cartItems SET quantity = quantity - 1 WHERE cartId=? AND tiffinId=?";
                 conn.query(sql, [cartId, tiffinId], async (err, result) => {
