@@ -40,6 +40,7 @@ router.post("/cart", async (req, res) => {
             "SELECT cartItems.quantity FROM cartItems WHERE cartId=? AND tiffinId=?";
           conn.query(sql, [cartId, tiffinId], (err, result) => {
             if (!err) {
+              console.log(result);
               if (result["quantity"] == 1) {
                 console.log("remove items");
                 var sql = "DELETE FROM cartItems WHERE cartId=? AND tiffinId=?";
