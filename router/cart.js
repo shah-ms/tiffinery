@@ -3,15 +3,12 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const conn = require("../db/db");
 
-function getCartItems(cartId) {
+async function getCartItems(cartId) {
   console.log("cart items function");
   var sql =
     "SELECT * FROM cartItems INNER JOIN tiffins ON cartItems.tiffinId = tiffins.tiffinId WHERE cartItems.cartId=?";
-  conn.query(sql, cartId, (err, result) => {
-    if (!err) {
-      return result;
-    }
-  });
+  let response = await conn.query(sql, cartId);
+  console.log(response);
 }
 
 router.post("/cart", async (req, res) => {
