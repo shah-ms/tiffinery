@@ -3,14 +3,6 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const conn = require("../db/db");
 
-async function getCartItems(cartId) {
-  console.log("cart items function");
-  var sql =
-    "SELECT * FROM cartItems INNER JOIN tiffins ON cartItems.tiffinId = tiffins.tiffinId WHERE cartItems.cartId=?";
-  let response = await conn.query(sql, cartId).promise();
-  console.log(response);
-}
-
 router.post("/cart", async (req, res) => {
   //   const token = event.headers["Authorization"].replace("Bearer ", "");
   //   const payload = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
@@ -33,9 +25,13 @@ router.post("/cart", async (req, res) => {
             if (err) {
             } else {
               console.log(result);
-              let cartItems = await getCartItems(cartId);
-              console.log(cartItems);
-              res.status(200).json(cartItems);
+              var sql =
+                "SELECT * FROM cartItems INNER JOIN tiffins ON cartItems.tiffinId = tiffins.tiffinId WHERE cartItems.cartId=?";
+              conn.query(sql, cartId, (err, result) => {
+                if (!err) {
+                  res.status(200).json(result);
+                }
+              });
             }
           });
         } else {
@@ -47,8 +43,13 @@ router.post("/cart", async (req, res) => {
                 var sql = "DELETE FROM cartItems WHERE cartId=? AND tiffinId=?";
                 conn.query(sql, [cartId, tiffinId], async (err, result) => {
                   if (!err) {
-                    let cartItems = await getCartItems(cartId);
-                    res.status(200).json(cartItems);
+                    var sql =
+                      "SELECT * FROM cartItems INNER JOIN tiffins ON cartItems.tiffinId = tiffins.tiffinId WHERE cartItems.cartId=?";
+                    conn.query(sql, cartId, (err, result) => {
+                      if (!err) {
+                        res.status(200).json(result);
+                      }
+                    });
                   }
                 });
               } else {
@@ -57,8 +58,13 @@ router.post("/cart", async (req, res) => {
                 conn.query(sql, [cartId, tiffinId], async (err, result) => {
                   if (err) {
                   } else {
-                    let cartItems = await getCartItems(cartId);
-                    res.status(200).json(cartItems);
+                    var sql =
+                      "SELECT * FROM cartItems INNER JOIN tiffins ON cartItems.tiffinId = tiffins.tiffinId WHERE cartItems.cartId=?";
+                    conn.query(sql, cartId, (err, result) => {
+                      if (!err) {
+                        res.status(200).json(result);
+                      }
+                    });
                   }
                 });
               }
