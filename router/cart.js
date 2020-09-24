@@ -104,7 +104,7 @@ router.get("/getCart", async (req, res) => {
 router.post("/cart/add", async (req, res) => {
   try {
     const { tiffinId } = req.body;
-
+    console.log("cart add");
     var sql = "SELECT cartId FROM cart WHERE userId=?";
     conn.query(sql, 1, (err, result) => {
       if (err) {
@@ -117,7 +117,14 @@ router.post("/cart/add", async (req, res) => {
             if (err) {
               res.status(400).json(err);
             } else {
-              res.status(200).json("Added to Cart");
+              var sql = "SELECT * FROM cartItems WHERE cartId=?";
+              conn.query(sql, cartId, (err, result) => {
+                if (err) {
+                  res.status(400).json(err);
+                } else {
+                  res.status(200).json(result);
+                }
+              });
             }
           });
         }
