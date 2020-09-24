@@ -101,4 +101,31 @@ router.get("/getCart", async (req, res) => {
   }
 });
 
+router.post("/cart/add", async (req, res) => {
+  try {
+    const { tiffinId } = req.body;
+
+    var sql = "SELECT cartId FROM cart WHERE userId=?";
+    conn.query(sql, 1, (err, result) => {
+      if (err) {
+      } else {
+        if (result.length == 1) {
+          let cartId = result[0]["cartId"];
+          var sql =
+            "INSERT INTO cartItems (cartId, tiffinId, quantity) VALUES (?,?,?)";
+          conn.query(sql, [cartId, tiffinId, 1], (err, result) => {
+            if (err) {
+              res.status(400).json(err);
+            } else {
+              res.status(200).json("Added to Cart");
+            }
+          });
+        }
+      }
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 module.exports = router;
