@@ -6,8 +6,8 @@ const conn = require("../db/db");
 require("dotenv").config();
 
 const nexmo = new Nexmo({
-  apiKey: "3f43bd78",
-  apiSecret: "My9MkIHkRN7eDbRR",
+  apiKey: process.env.NEXMO_API_KEY,
+  apiSecret: process.env.NEXMO_SECRET_API_KEY,
 });
 
 const router = express.Router();
